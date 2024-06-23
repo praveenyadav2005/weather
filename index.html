@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/d3fc2c26f2.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Weather app</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        /* padding: 3px; */
+      }
+      body {
+        width:calc(100%);
+        height: 110vh;
+        display: grid;
+        place-items: center;
+        background-color: rgba(0, 0, 0, 0.93);
+        & .main-cont {
+          /* width: 40vw; */
+          min-width: 350px;
+          max-width: 600px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          padding: 20px;
+          flex-direction: column;
+          gap: 20px;
+          background-color: hsl(0, 0%, 92%);
+          /* background-color: rgb(255, 255, 255); */
+          border-radius: 10px;
+          & .search {
+            display: flex;
+            & button {
+              padding: 10px 10px;
+              padding-left: 15px;
+              padding-right: 10px;
+              cursor: pointer;
+              background-color: rgba(0, 0, 0, 0.9);
+              color: rgba(255, 255, 255, 0.924);
+              border: none;
+              border-top-left-radius: 5px;
+              border-bottom-left-radius: 5px;
+            }
+            & input {
+              padding: 10px 10px;
+              background-color: rgba(0, 0, 0, 0.9);
+              color: rgba(255, 255, 255, 0.924);
+              border: none;
+              border-top-right-radius: 5px;
+              border-bottom-right-radius: 5px;
+              width: 280px;
+              &::placeholder {
+                color: rgba(255, 255, 255, 0.796);
+              }
+              &:focus {
+                scale: 1;
+                outline: none;
+              }
+            }
+          }
+
+          & .main-data {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+
+            & #city-name {
+              font-weight: 600;
+              font-size: 25px;
+            }
+            & #date-time {
+              font-size: 15px;
+            }
+            & #status {
+              padding: 5px 20px;
+              font-size: 15px;
+              background-color: black;
+              color: white;
+              border-radius: 20px;
+            }
+            & .display {
+              /* width: 95%; */
+              padding: 10px;
+              display: flex;
+              align-items: center;
+              align-content: center;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              gap: 10px;
+            
+            & #icon {
+              /* text-shadow: 1px 1px 3px rgba(0,0,0,0.5); */
+              filter: drop-shadow(2px 4px 6px black);
+              -webkit-filter: drop-shadow(2px 4px 6px black);
+            }
+            & .temp {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+
+              align-items: center;
+              & #main-temp {
+                font-size: 30px;
+              }
+              & .min-max-temp {
+                display: flex;
+                gap: 20px;
+                & p {
+                  font-size: 14px;
+                }
+              }
+            }
+            }
+         
+          
+          }
+
+          & .additional-data {
+            padding: 10px 5px;
+            display: flex;
+            /* width: 99%; */
+            /* margin: 0 auto; */
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            & .card {
+              max-width: 250px;
+              width: 250px;
+              padding: 12px 25px;
+              display: flex;
+              border-radius: 7px;
+              align-items: center;
+              /* justify-content: center; */
+              justify-content: flex-start;
+              gap: 20px;
+              background-color: rgba(255, 255, 255, 0.863);
+              box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+              & .card-icon {
+                font-size: 35px;
+              }
+              & .card-details {
+                & h3 {
+                  /* font-weight: 500; */
+                  font-size: 16px;
+                }
+                & p {
+                  font-size: 13px;
+                }
+              }
+            }
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="main-cont">
+      <div class="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+        <input
+          type="text"
+          placeholder="Search yor city..."
+          name=""
+          id="search"
+        />
+      </div>
+      <div class="main-data">
+        <h1 id="city-name">Azamgarh,India</h1>
+        <p id="date-time">Saturday,Feb 23 4024</p>
+        <p id="status">Clear</p>
+        <div class="display">
+          <p id="icon"></p>
+          <div class="temp">
+            <h1 id="main-temp">36</h1>
+            <div class="min-max-temp">
+              <p id="min-temp">Min:31</p>
+              <p id="max-temp">Max:37</p>
+            </div>
+          </div>
+        </div>
+        <!-- <p id="icon"></p>
+        <div class="temp">
+          <h1 id="main-temp">36</h1>
+          <div class="min-max-temp">
+            <p id="min-temp">Min:31</p>
+            <p id="max-temp">Max:37</p>
+          </div>
+        </div> -->
+      </div>
+      <div class="additional-data">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fa-solid fa-temperature-three-quarters"></i>
+          </div>
+          <div class="card-details">
+            <h3>Feels Like</h3>
+            <p id="feels-like">35</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img src="./humidity.png" width="35px" />
+          </div>
+          <div class="card-details">
+            <h3>Humidity</h3>
+            <p id="humidity">35</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-wind"></i>
+          </div>
+          <div class="card-details">
+            <h3>Wind</h3>
+            <p id="wind">35</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <img src="./gauge.png" alt="" width="35px" />
+          </div>
+          <div class="card-details">
+            <h3>Pressure</h3>
+            <p id="pressure">35</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <img src="./cloud.png" alt="" width="35px" />
+          </div>
+          <div class="card-details">
+            <h3>Clouds</h3>
+            <p id="clouds">35</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const weatherApiKey = "f75d164daca9b8c69f1e2de3b69ab776";
+      let city_name = "Azamgarh ,India";
+
+      const cityData = document.getElementById("city-name");
+      const dateTimeData = document.getElementById("date-time");
+      const statusData = document.getElementById("status");
+      const icon = document.getElementById("icon");
+      const mainTempData = document.getElementById("main-temp");
+      const minTempData = document.getElementById("min-temp");
+      const maxTempData = document.getElementById("max-temp");
+      const feelsLikeData = document.getElementById("feels-like");
+      const humidityData = document.getElementById("humidity");
+      const windData = document.getElementById("wind");
+      const pressureData = document.getElementById("pressure");
+      const cloudData = document.getElementById("clouds");
+
+      const inputData = document.getElementById("search");
+      const submitBtn = document.querySelector(".search button");
+
+      // let latitudeApiUrl=`http://api.openweathermap.org/geo/1.0/direct?q=${city_name}&limit=1&appid=${weatherApiKey}`;
+      // const GetLatitude = async()=>{
+      //     try {
+      //         let res = await fetch(latitudeApiUrl,{
+      //         headers:{
+      //             Accept:"application/json",
+      //         },
+      //     })
+      //     let data = await res.json();
+      //     console.log(data[0]);
+      //    await GetWeather(data[0]);
+
+      //     } catch (error) {
+      //        console.log(error);
+      //     }
+      // }
+
+      const getDateTime = (dt) => {
+        const curDate = new Date(dt * 1000); // Convert seconds to milliseconds
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+        };
+        const formatter = new Intl.DateTimeFormat("en-US", options);
+        return formatter.format(curDate);
+      };
+
+      const getCountryName = (code) => {
+        return new Intl.DisplayNames([code], { type: "region" }).of(code);
+      };
+
+      const GetWeather = async (city) => {
+        let weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${weatherApiKey}&units=metric`;
+
+        try {
+          let res = await fetch(weatherApiUrl, {
+            headers: {
+              Accept: "application/json",
+            },
+          });
+          let data = await res.json();
+          let { clouds, main, dt, name, sys, weather, wind } = data;
+          cityData.innerText = `${name},${getCountryName(sys.country)}`;
+          dateTimeData.innerText = `${getDateTime(dt)}`;
+          statusData.innerText = `${weather[0].main}`;
+          icon.innerHTML = `<img width="150px" src="http://openweathermap.org/img/wn/${weather[0].icon}@4x.png" />`;
+          mainTempData.innerHTML = `${main.temp}&#xb0 C`;
+          minTempData.innerHTML = `Min: ${Math.floor(main.temp_min)}&#xb0 C`;
+          maxTempData.innerHTML = `Max: ${Math.ceil(main.temp_max)}&#xb0 C`;
+          feelsLikeData.innerHTML = `${main.feels_like}&#xb0 C`;
+          humidityData.innerText = `${main.humidity}%`;
+          pressureData.innerText = `${main.pressure} hPa`;
+          cloudData.innerText = `${clouds.all}%`;
+          windData.innerText = `${wind.speed} m/s`;
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      // GetWeather(city_name);
+
+      submitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        GetWeather(inputData.value);
+        inputData.value = "";
+      });
+    </script>
+  </body>
+</html>
